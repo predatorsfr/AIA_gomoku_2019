@@ -1,6 +1,6 @@
 ##
 ## EPITECH PROJECT, 2019
-## 301dannon_2019
+## Makefile
 ## File description:
 ## Makefile
 ##
@@ -8,8 +8,8 @@
 NAME	=	pbrain-gomoku-ai
 
 SRCS	=	main.cpp	\
-			process.cpp	\
-			IA.cpp
+			IA.cpp	\
+		process.cpp
 
 SRCDIR	=	./src/
 

@@ -28,8 +28,6 @@ struct Move
     int row, col; 
 }; 
 
-Move findBestMove(std::vector<std::vector<char>> map);
-
-
+Move findBestMove(char board[3][3]);
 
 #endif

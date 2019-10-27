@@ -18,7 +18,7 @@ IA::IA(int length)
             map[i].push_back('_');
         }
     }
-    std::cout << "OK - everything is good" <<std::endl;
+    std::cout << "OK" <<std::endl;
 }
 
 void IA::process(std::string str)
@@ -59,7 +59,7 @@ void IA::ask(int x, int y)
     for(int i = 0 ; i < 3; i++)
         for (int j = 0 ; j < 3 ; j++)
             tab[i][j] = map[x + x2 + i - 1][y + y2 + j -1];
-    Move move = findBestMove(map);
+    Move move = findBestMove(tab);
     map[move.col + beginx][move.row + beginy] = 'A';
     std::cout << beginx + move.col + 1 << ","<< beginy + move.row + 1<<std::endl;
 

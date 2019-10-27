@@ -1,14 +1,14 @@
 #include "IA.hpp"
 #include <algorithm>
-#include<bits/stdc++.h> 
+#include<iostream> 
 
 
 char player = 'A', opponent = 'E'; 
 
-bool isMovesLeft(std::vector<std::vector<char>> board)
+bool isMovesLeft(char board[3][3])
 { 
-    for (int i = 0; i<(int)board.size(); i++) 
-        for (int j = 0; j<(int)board.size(); j++) 
+    for (int i = 0; i<3; i++) 
+        for (int j = 0; j<3; j++) 
             if (board[i][j]=='_') 
                 return true; 
     return false; 
@@ -16,45 +16,60 @@ bool isMovesLeft(std::vector<std::vector<char>> board)
   
 // This is the evaluation function as discussed 
 // in the previous article ( http://goo.gl/sJgv68 ) 
-int evaluate(std::vector<std::vector<char>> b) 
+int evaluate(char b[3][3]) 
 { 
     // Checking for Rows for X or O victory. 
-    for (int row = 0; row<(int)b.size(); row++) 
+    for (int row = 0; row<3; row++) 
     { 
-        for (int i = 1 ; i < (int)b.size() -1 ; i++) {
-            if (b[row][i -1]==b[row][i] && 
-                b[row][i]==b[row][i+1]) 
-            { 
-                if (b[row][i-1]==player) 
-                    return +10; 
-                else if (b[row][i-1]==opponent) 
-                    return -10;
-            } 
-            if (b[i-1][i-1]==b[i][i] && b[i][i]==b[i+1][i+1]) { 
-                if (b[i-1][i-1]==player) 
-                    return +10; 
-                else if (b[i-1][i-1]==opponent) 
+        if (b[row][0]==b[row][1] && 
+            b[row][1]==b[row][2]) 
+        { 
+            if (b[row][0]==player) 
+                return +10; 
+            else if (b[row][0]==opponent) 
                 return -10; 
-            } 
-            if (b[i-1][i+1]==b[i][i] && b[i][i]==b[i+1][i-1]) { 
-                if (b[i-1][i+1]==player) 
-                    return +10; 
-                else if (b[i-1][i+1]==opponent) 
-                return -10; 
-            } 
         } 
-    }
-    return 0;  
-} 
-    
+    } 
   
+    // Checking for Columns for X or O victory. 
+    for (int col = 0; col<3; col++) 
+    { 
+        if (b[0][col]==b[1][col] && 
+            b[1][col]==b[2][col]) 
+        { 
+            if (b[0][col]==player) 
+                return +10; 
+  
+            else if (b[0][col]==opponent) 
+                return -10; 
+        } 
+    } 
+  
+    // Checking for Diagonals for X or O victory. 
+    if (b[0][0]==b[1][1] && b[1][1]==b[2][2]) 
+    { 
+        if (b[0][0]==player) 
+            return +10; 
+        else if (b[0][0]==opponent) 
+            return -10; 
+    } 
+  
+    if (b[0][2]==b[1][1] && b[1][1]==b[2][0]) 
+    { 
+        if (b[0][2]==player) 
+            return +10; 
+        else if (b[0][2]==opponent) 
+            return -10; 
+    } 
   
     // Else if none of them have won then return 0 
+    return 0; 
+} 
   
 // This is the minimax function. It considers all 
 // the possible ways the game can go and returns 
 // the value of the board 
-int minimax(std::vector<std::vector<char>> board, int depth, bool isMax) 
+int minimax(char board[3][3], int depth, bool isMax) 
 { 
     int score = evaluate(board); 
   
@@ -79,9 +94,9 @@ int minimax(std::vector<std::vector<char>> board, int depth, bool isMax)
         int best = -1000; 
   
         // Traverse all cells 
-        for (int i = 0; i<(int)board.size(); i++) 
+        for (int i = 0; i<3; i++) 
         { 
-            for (int j = 0; j<(int)board.size(); j++) 
+            for (int j = 0; j<3; j++) 
             { 
                 // Check if cell is empty 
                 if (board[i][j]=='_') 
@@ -108,9 +123,9 @@ int minimax(std::vector<std::vector<char>> board, int depth, bool isMax)
         int best = 1000; 
   
         // Traverse all cells 
-        for (int i = 0; i<(int)board.size(); i++) 
+        for (int i = 0; i<3; i++) 
         { 
-            for (int j = 0; j<(int)board.size(); j++) 
+            for (int j = 0; j<3; j++) 
             { 
                 // Check if cell is empty 
                 if (board[i][j]=='_') 
@@ -133,7 +148,7 @@ int minimax(std::vector<std::vector<char>> board, int depth, bool isMax)
 } 
   
 // This will return the best possible move for the player 
-Move findBestMove(std::vector<std::vector<char>> board) 
+Move findBestMove(char board[3][3]) 
 { 
     int bestVal = -1000; 
     Move bestMove; 
@@ -143,9 +158,9 @@ Move findBestMove(std::vector<std::vector<char>> board)
     // Traverse all cells, evaluate minimax function for 
     // all empty cells. And return the cell with optimal 
     // value. 
-    for (int i = 0; i<(int)board.size(); i++) 
+    for (int i = 0; i<3; i++) 
     { 
-        for (int j = 0; j<(int)board.size(); j++) 
+        for (int j = 0; j<3; j++) 
         { 
             // Check if cell is empty 
             if (board[i][j]=='_') 
