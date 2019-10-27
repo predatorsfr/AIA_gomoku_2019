@@ -59,7 +59,7 @@ void IA::ask(int x, int y)
     for(int i = 0 ; i < 3; i++)
         for (int j = 0 ; j < 3 ; j++)
             tab[i][j] = map[x + x2 + i - 1][y + y2 + j -1];
-    Move move = findBestMove(tab);
+    Move move = findBestMove(map);
     map[move.col + beginx][move.row + beginy] = 'A';
     std::cout << beginx + move.col + 1 << ","<< beginy + move.row + 1<<std::endl;
 
